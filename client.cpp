@@ -3,6 +3,7 @@
 #include<sys/socket.h>
 #include<netinet/in.h>
 #include<string.h>
+#include<unistd.h>
 #define PORT 8001
 
 using namespace std;
@@ -38,17 +39,27 @@ int main()
 	
 	
 	
-	char buff[50]= "i am client.......";
-	send(sockfd, buff, 50, 0);
-	cout<<"msg sent to server:\t"<<buff<<endl;
-	
-	
 	
 	char msg[50];
 	
 	recv(sockfd, msg, 50,0);
 	
 	cout<<"msg received from server:\t"<< msg<<endl;
+	
+	
+	
+	char buff[50];
+	//char buff[50]= "i am client1";
+	
+	cout<<"Enter the msg u want to send:\t"<<endl;
+	cin.getline(buff, 50);
+	send(sockfd, buff, 50, 0);
+	cout<<"msg sent to server:\t"<<buff<<endl;
+	
+	close(sockfd);
+	
+	
+	
 	
 	
 	

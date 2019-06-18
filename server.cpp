@@ -3,6 +3,7 @@
 #include<sys/socket.h>
 #include<netinet/in.h>
 #include<string.h>
+#include<unistd.h>
 #define PORT 8001
 
 using namespace std;
@@ -48,6 +49,8 @@ int main()
 	int addrlen= sizeof(struct sockaddr_in) ;
 	
 	
+	while(1)
+	{	
 	int socket= accept(sockfd, (struct sockaddr *)&s, (socklen_t *)&addrlen);
 	
 	if(socket==-1)
@@ -59,8 +62,11 @@ int main()
 	
 	cout<<"socket connection established"<<endl;
 	
-	
-	char buff[50]= "I am server.......";
+	char buff[50];
+	//char buff[50]= "i am server";
+	cout<<"enter the msg u want to send:\t"<<endl;
+	cin.getline(buff, 50);
+
 	send(socket, buff, 50, 0);
 	cout<<"msg sent to client:\t"<<buff<<endl;
 	
@@ -71,7 +77,9 @@ int main()
 	recv(socket, msg, 50,0);
 	
 	cout<<"msg received from client:\t"<<msg<<endl;
+	}
 	
+	close(sockfd);
 	
 	
 	
